@@ -6,7 +6,7 @@ data "template_file" "launch_template_worker_role_arns" {
   template = file("${path.module}/templates/worker-role.tpl")
 
   vars = {
-    worker_role_arn = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/${element(
+    worker_role_arn = "arn:${data.aws_partition.current.partition}:iam::${data.aws_caller_identity.current.account_id}:role/${element(
       coalescelist(
         aws_iam_instance_profile.workers_launch_template.*.role,
         data.aws_iam_instance_profile.custom_worker_group_launch_template_iam_instance_profile.*.role_name,
@@ -26,7 +26,7 @@ data "template_file" "worker_role_arns" {
   template = file("${path.module}/templates/worker-role.tpl")
 
   vars = {
-    worker_role_arn = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/${element(
+    worker_role_arn = "arn:${data.aws_partition.current.partition}:iam::${data.aws_caller_identity.current.account_id}:role/${element(
       coalescelist(
         aws_iam_instance_profile.workers.*.role,
         data.aws_iam_instance_profile.custom_worker_group_iam_instance_profile.*.role_name,
