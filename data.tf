@@ -17,7 +17,7 @@ data "aws_iam_policy_document" "workers_assume_role_policy" {
 
     principals {
       type        = "Service"
-      identifiers = ["ec2.amazonaws.com"]
+      identifiers = ["ec2.${data.aws_partition.current.dns_suffix}"]
     }
   }
 }
